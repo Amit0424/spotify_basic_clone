@@ -1,12 +1,14 @@
 import "dart:ui";
 
 import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
 import "package:flutter_svg/svg.dart";
 import "package:spotify_clone/core/configs/theme/app_colors.dart";
 
 import "../../../common/widgets/button/basic_app_button.dart";
 import "../../../core/configs/assets/app_images.dart";
 import "../../../core/configs/assets/app_vectors.dart";
+import "../bloc/theme_cubit.dart";
 
 class ChooseModePage extends StatelessWidget {
   const ChooseModePage({super.key});
@@ -48,19 +50,27 @@ class ChooseModePage extends StatelessWidget {
                   children: [
                     Column(
                       children: [
-                        ClipOval(
-                          child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                            child: Container(
-                              height: 80,
-                              width: 80,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF30393C).withOpacity(0.5),
-                                shape: BoxShape.circle,
-                              ),
-                              child: SvgPicture.asset(
-                                AppVectors.moon,
-                                fit: BoxFit.none,
+                        GestureDetector(
+                          onTap: () {
+                            context
+                                .read<ThemeCubit>()
+                                .updateTheme(ThemeMode.dark);
+                          },
+                          child: ClipOval(
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                              child: Container(
+                                height: 80,
+                                width: 80,
+                                decoration: BoxDecoration(
+                                  color:
+                                      const Color(0xFF30393C).withOpacity(0.5),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: SvgPicture.asset(
+                                  AppVectors.moon,
+                                  fit: BoxFit.none,
+                                ),
                               ),
                             ),
                           ),
@@ -79,19 +89,27 @@ class ChooseModePage extends StatelessWidget {
                     const SizedBox(width: 40),
                     Column(
                       children: [
-                        ClipOval(
-                          child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                            child: Container(
-                              height: 80,
-                              width: 80,
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF30393C).withOpacity(0.5),
-                                shape: BoxShape.circle,
-                              ),
-                              child: SvgPicture.asset(
-                                AppVectors.sun,
-                                fit: BoxFit.none,
+                        GestureDetector(
+                          onTap: () {
+                            context
+                                .read<ThemeCubit>()
+                                .updateTheme(ThemeMode.light);
+                          },
+                          child: ClipOval(
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                              child: Container(
+                                height: 80,
+                                width: 80,
+                                decoration: BoxDecoration(
+                                  color:
+                                      const Color(0xFF30393C).withOpacity(0.5),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: SvgPicture.asset(
+                                  AppVectors.sun,
+                                  fit: BoxFit.none,
+                                ),
                               ),
                             ),
                           ),
