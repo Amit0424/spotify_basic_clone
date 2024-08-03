@@ -29,6 +29,12 @@ class AppTheme {
           width: 0.4,
         ),
       ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30),
+        borderSide: const BorderSide(
+          color: Colors.black,
+        ),
+      ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -70,6 +76,12 @@ class AppTheme {
         borderSide: const BorderSide(
           color: Colors.white,
           width: 0.4,
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30),
+        borderSide: const BorderSide(
+          color: Colors.white,
         ),
       ),
     ),

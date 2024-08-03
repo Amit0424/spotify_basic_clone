@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:spotify_clone/common/helpers/is_dark_mode.dart';
 import 'package:spotify_clone/common/widgets/appbar/app_bar.dart';
 import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
@@ -11,6 +12,7 @@ class Signin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       bottomNavigationBar: _signupText(context),
       appBar: BasicAppBar(
         title: SvgPicture.asset(
@@ -52,6 +54,7 @@ class Signin extends StatelessWidget {
 
   Widget _fullNameField(BuildContext context) {
     return TextFormField(
+      cursorColor: context.isDarkMode ? Colors.white : Colors.black,
       decoration: const InputDecoration(
         hintText: "Full Name",
       ).applyDefaults(
@@ -62,6 +65,7 @@ class Signin extends StatelessWidget {
 
   Widget _passwordField(BuildContext context) {
     return TextFormField(
+      cursorColor: context.isDarkMode ? Colors.white : Colors.black,
       decoration: const InputDecoration(
         hintText: "Enter Password",
       ).applyDefaults(
@@ -85,8 +89,8 @@ class Signin extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const Signup()));
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => Signup()));
             },
             child: const Text('Register Now'),
           ),
