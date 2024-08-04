@@ -4,10 +4,18 @@ import 'package:spotify_clone/common/helpers/is_dark_mode.dart';
 import 'package:spotify_clone/common/widgets/appbar/app_bar.dart';
 import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
+import 'package:spotify_clone/data/models/auth/signin_user_req.dart';
 import 'package:spotify_clone/presentation/auth/pages/signup.dart';
 
+import '../../../domain/usecases/auth/signin.dart';
+import '../../../service_locator.dart';
+import '../../root/pages/root.dart';
+
 class Signin extends StatelessWidget {
-  const Signin({super.key});
+  Signin({super.key});
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +29,7 @@ class Signin extends StatelessWidget {
           width: 40,
         ),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(
           horizontal: 30.0,
           vertical: 50,
@@ -31,11 +39,37 @@ class Signin extends StatelessWidget {
           children: [
             _signinText(),
             const SizedBox(height: 50),
-            _fullNameField(context),
+            _emailField(context),
             const SizedBox(height: 20),
             _passwordField(context),
             const SizedBox(height: 20),
-            BasicAppButton(onPressed: () {}, title: 'Create Account'),
+            BasicAppButton(
+                onPressed: () async {
+                  var result = await sl<SigninUseCase>().call(
+                    params: SigninUserReq(
+                      email: _emailController.text.toString(),
+                      password: _passwordController.text.toString(),
+                    ),
+                  );
+
+                  result.fold((l) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(l.toString()),
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  }, (r) {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RootPage(),
+                      ),
+                      (route) => false,
+                    );
+                  });
+                },
+                title: 'Sign In'),
           ],
         ),
       ),
@@ -52,11 +86,12 @@ class Signin extends StatelessWidget {
     );
   }
 
-  Widget _fullNameField(BuildContext context) {
+  Widget _emailField(BuildContext context) {
     return TextFormField(
+      controller: _emailController,
       cursorColor: context.isDarkMode ? Colors.white : Colors.black,
       decoration: const InputDecoration(
-        hintText: "Full Name",
+        hintText: "Enter Email",
       ).applyDefaults(
         Theme.of(context).inputDecorationTheme,
       ),
@@ -65,6 +100,7 @@ class Signin extends StatelessWidget {
 
   Widget _passwordField(BuildContext context) {
     return TextFormField(
+      controller: _passwordController,
       cursorColor: context.isDarkMode ? Colors.white : Colors.black,
       decoration: const InputDecoration(
         hintText: "Enter Password",

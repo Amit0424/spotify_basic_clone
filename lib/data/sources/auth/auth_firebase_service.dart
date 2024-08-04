@@ -1,17 +1,37 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:spotify_clone/data/models/auth/create_user_req.dart';
+import 'package:spotify_clone/data/models/auth/signin_user_req.dart';
 
 abstract class AuthFirebaseService {
-  Future<void> signin();
+  Future<Either> signin(SigninUserReq signinUserReq);
 
   Future<Either> signup(CreateUserReq createUserReq);
 }
 
 class AuthFirebaseServiceImpl extends AuthFirebaseService {
   @override
-  Future<void> signin() {
-    throw UnimplementedError();
+  Future<Either> signin(SigninUserReq signinUserReq) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: signinUserReq.email,
+        password: signinUserReq.password,
+      );
+
+      return const Right('User signed in successfully');
+    } on FirebaseAuthException catch (e) {
+      String message = 'An error occurred';
+      if (e.code == 'invalid-email') {
+        message = 'The email address is badly formatted';
+      } else if (e.code == 'invalid-credential') {
+        message = 'Wrong email or password';
+      }
+      return Left(message);
+    } catch (e) {
+      debugPrint(e.toString());
+      return const Left('An error occurred while creating user');
+    }
   }
 
   @override
@@ -32,6 +52,7 @@ class AuthFirebaseServiceImpl extends AuthFirebaseService {
       }
       return Left(message);
     } catch (e) {
+      debugPrint(e.toString());
       return const Left('An error occurred while creating user');
     }
   }

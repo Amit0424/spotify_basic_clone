@@ -30,7 +30,7 @@ class Signup extends StatelessWidget {
           width: 40,
         ),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(
           horizontal: 30.0,
           vertical: 50,
@@ -141,8 +141,8 @@ class Signup extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => const Signin()));
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => Signin()));
             },
             child: const Text('Sign In'),
           ),
