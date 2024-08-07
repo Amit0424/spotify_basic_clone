@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +24,14 @@ Future<void> main() async {
   );
 
   await initializeDependencies();
-  runApp(const MyApp());
+  final isLoggedIn = await checkLoginState();
+  runApp(MyApp(isLoggedIn: isLoggedIn));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isLoggedIn;
+
+  const MyApp({super.key, required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +46,16 @@ class MyApp extends StatelessWidget {
           darkTheme: AppTheme.darkTheme,
           themeMode: mode,
           debugShowCheckedModeBanner: false,
-          home: const SplashPage(),
+          home: SplashPage(
+            isLoggedIn: isLoggedIn,
+          ),
         ),
       ),
     );
   }
+}
+
+Future<bool> checkLoginState() async {
+  final user = FirebaseAuth.instance.currentUser;
+  return user != null;
 }

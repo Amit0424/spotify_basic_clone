@@ -6,7 +6,7 @@ import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
 import 'package:spotify_clone/data/models/auth/create_user_req.dart';
 import 'package:spotify_clone/presentation/auth/pages/signin.dart';
-import 'package:spotify_clone/presentation/root/pages/root.dart';
+import 'package:spotify_clone/presentation/home/pages/home.dart';
 
 import '../../../domain/usecases/auth/signup.dart';
 import '../../../service_locator.dart';
@@ -24,10 +24,13 @@ class Signup extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: _signinText(context),
       appBar: BasicAppBar(
-        title: SvgPicture.asset(
-          AppVectors.logo,
-          height: 40,
-          width: 40,
+        title: Hero(
+          tag: 'logo',
+          child: SvgPicture.asset(
+            AppVectors.logo,
+            height: 40,
+            width: 40,
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -67,7 +70,7 @@ class Signup extends StatelessWidget {
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const RootPage(),
+                        builder: (context) => const HomePage(),
                       ),
                       (route) => false,
                     );
@@ -99,6 +102,7 @@ class Signup extends StatelessWidget {
       ).applyDefaults(
         Theme.of(context).inputDecorationTheme,
       ),
+      keyboardType: TextInputType.name,
     );
   }
 
@@ -111,6 +115,7 @@ class Signup extends StatelessWidget {
       ).applyDefaults(
         Theme.of(context).inputDecorationTheme,
       ),
+      keyboardType: TextInputType.emailAddress,
     );
   }
 
@@ -123,6 +128,7 @@ class Signup extends StatelessWidget {
       ).applyDefaults(
         Theme.of(context).inputDecorationTheme,
       ),
+      keyboardType: TextInputType.visiblePassword,
     );
   }
 

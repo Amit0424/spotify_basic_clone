@@ -7,4 +7,14 @@ class AppVectors {
   static const String moon = '${basePath}moon$format';
   static const String topPattern = '${basePath}top_pattern$format';
   static const String bottomPattern = '${basePath}bottom_pattern$format';
+  static const String homeTopCard = '${basePath}home_top_card$format';
+  static const String home = '${basePath}home$format';
+  static const String settings = '${basePath}setting$format';
+  static const String favorite = '${basePath}favorite$format';
+  static const String profile = '${basePath}profile$format';
+  static const String filledHome = '${basePath}filled_home$format';
+
+  // static const String filledSettings = '${basePath}filled_setting$format';
+  static const String filledFavorite = '${basePath}filled_favorite$format';
+  static const String filledProfile = '${basePath}filled_profile$format';
 }

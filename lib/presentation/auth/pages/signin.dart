@@ -6,10 +6,10 @@ import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
 import 'package:spotify_clone/data/models/auth/signin_user_req.dart';
 import 'package:spotify_clone/presentation/auth/pages/signup.dart';
+import 'package:spotify_clone/presentation/home/pages/home.dart';
 
 import '../../../domain/usecases/auth/signin.dart';
 import '../../../service_locator.dart';
-import '../../root/pages/root.dart';
 
 class Signin extends StatelessWidget {
   Signin({super.key});
@@ -23,10 +23,13 @@ class Signin extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: _signupText(context),
       appBar: BasicAppBar(
-        title: SvgPicture.asset(
-          AppVectors.logo,
-          height: 40,
-          width: 40,
+        title: Hero(
+          tag: 'logo',
+          child: SvgPicture.asset(
+            AppVectors.logo,
+            height: 40,
+            width: 40,
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -63,7 +66,7 @@ class Signin extends StatelessWidget {
                     Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const RootPage(),
+                        builder: (context) => const HomePage(),
                       ),
                       (route) => false,
                     );
@@ -95,6 +98,7 @@ class Signin extends StatelessWidget {
       ).applyDefaults(
         Theme.of(context).inputDecorationTheme,
       ),
+      keyboardType: TextInputType.emailAddress,
     );
   }
 
@@ -107,6 +111,7 @@ class Signin extends StatelessWidget {
       ).applyDefaults(
         Theme.of(context).inputDecorationTheme,
       ),
+      keyboardType: TextInputType.visiblePassword,
     );
   }
 

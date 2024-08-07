@@ -45,8 +45,11 @@ class SignupOrSignin extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(
-                    AppVectors.logo,
+                  Hero(
+                    tag: 'logo',
+                    child: SvgPicture.asset(
+                      AppVectors.logo,
+                    ),
                   ),
                   const SizedBox(height: 55),
                   const Text(

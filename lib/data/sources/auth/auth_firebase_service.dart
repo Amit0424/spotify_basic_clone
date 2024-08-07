@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -41,6 +42,22 @@ class AuthFirebaseServiceImpl extends AuthFirebaseService {
         email: createUserReq.email,
         password: createUserReq.password,
       );
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .set({
+        'email': createUserReq.email,
+        'name': createUserReq.fullName,
+        'createdAt': FieldValue.serverTimestamp(),
+        'updatedAt': FieldValue.serverTimestamp(),
+        'profilePic': '',
+        'favoriteSongs': [],
+        'favoriteArtists': [],
+        'favoriteAlbums': [],
+        'ownedPlaylists': [],
+        'listeningHistory': [],
+      });
 
       return const Right('User created successfully');
     } on FirebaseAuthException catch (e) {

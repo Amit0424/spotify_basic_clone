@@ -18,6 +18,9 @@ dependencies:
   firebase_auth:
   get_it:
   dartz:
+  spotify:
+  cloud_firestore:
+  provider:
 
 
 dev_dependencies:

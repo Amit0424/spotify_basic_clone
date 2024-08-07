@@ -36,7 +36,7 @@ class ChooseModePage extends StatelessWidget {
             padding: const EdgeInsets.all(40),
             child: Column(
               children: [
-                SvgPicture.asset(AppVectors.logo),
+                Hero(tag: 'logo', child: SvgPicture.asset(AppVectors.logo)),
                 const Spacer(),
                 const Text(
                   "Choose Mode",
