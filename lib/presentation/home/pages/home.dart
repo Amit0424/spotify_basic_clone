@@ -5,6 +5,7 @@ import 'package:spotify_clone/core/configs/assets/app_images.dart';
 import 'package:spotify_clone/core/configs/theme/app_colors.dart';
 import 'package:spotify_clone/presentation/home/widgets/news_songs.dart';
 import 'package:spotify_clone/presentation/home/widgets/play_list.dart';
+import 'package:spotify_clone/presentation/profile/pages/profile.dart';
 
 import '../../../common/widgets/appbar/app_bar.dart';
 import '../../../core/configs/assets/app_vectors.dart';
@@ -39,6 +40,13 @@ class _HomePageState extends State<HomePage>
           ),
         ),
         hideBack: true,
+        action: IconButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ProfilePage()));
+          },
+          icon: const Icon(Icons.person),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(

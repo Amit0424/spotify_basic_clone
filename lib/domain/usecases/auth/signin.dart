@@ -8,6 +8,6 @@ import '../../../service_locator.dart';
 class SigninUseCase implements UseCase<Either, SigninUserReq> {
   @override
   Future<Either> call({SigninUserReq? params}) async {
-    return sl<AuthRepository>().signin(params!);
+    return await sl<AuthRepository>().signin(params!);
   }
 }

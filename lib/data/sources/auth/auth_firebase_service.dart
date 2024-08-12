@@ -4,11 +4,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:spotify_clone/data/models/auth/create_user_req.dart';
 import 'package:spotify_clone/data/models/auth/signin_user_req.dart';
+import 'package:spotify_clone/data/models/auth/user.dart';
+import 'package:spotify_clone/domain/entities/auth/user.dart';
 
 abstract class AuthFirebaseService {
   Future<Either> signin(SigninUserReq signinUserReq);
 
   Future<Either> signup(CreateUserReq createUserReq);
+
+  Future<Either> getUser();
 }
 
 class AuthFirebaseServiceImpl extends AuthFirebaseService {
@@ -71,6 +75,25 @@ class AuthFirebaseServiceImpl extends AuthFirebaseService {
     } catch (e) {
       debugPrint(e.toString());
       return const Left('An error occurred while creating user');
+    }
+  }
+
+  @override
+  Future<Either> getUser() async {
+    try {
+      final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+      final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+
+      final user = await firebaseFirestore
+          .collection('users')
+          .doc(firebaseAuth.currentUser!.uid)
+          .get();
+      UserModel userModel = UserModel.fromJson(user.data()!);
+      UserEntity userEntity = userModel.toEntity();
+      return Right(userEntity);
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left('An error occurred while getting user');
     }
   }
 }
