@@ -17,11 +17,16 @@ class SongRepositoryImpl extends SongRepository {
 
   @override
   Future<Either> addOrRemoveFavoriteSongs(String songId) async {
-    return await sl<SongFirebaseService>().addOrRemoveFavoriteSongs(songId);
+    return await sl<SongFirebaseService>().addOrRemoveFavoriteSong(songId);
   }
 
   @override
   Future<bool> isFavoriteSong(String songId) {
     return sl<SongFirebaseService>().isFavoriteSong(songId);
+  }
+
+  @override
+  Future<Either> getUserFavoriteSongs() async {
+    return await sl<SongFirebaseService>().getUserFavoriteSongs();
   }
 }

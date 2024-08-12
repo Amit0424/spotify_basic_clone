@@ -5,6 +5,7 @@ import 'package:spotify_clone/core/configs/theme/app_colors.dart';
 import 'package:spotify_clone/domain/entities/song/song.dart';
 import 'package:spotify_clone/presentation/song_player/bloc/song_player_state.dart';
 
+import '../../../common/widgets/favorite_button/favorite_button.dart';
 import '../bloc/song_player_cubit.dart';
 
 class SongPlayerPage extends StatelessWidget {
@@ -80,16 +81,7 @@ class SongPlayerPage extends StatelessWidget {
             ),
           ],
         ),
-        IconButton(
-          onPressed: () {},
-          icon: Icon(
-            songEntity.isFavorite
-                ? Icons.favorite
-                : Icons.favorite_outline_outlined,
-            size: 35,
-            color: AppColors.darkGrey,
-          ),
-        ),
+        FavoriteButton(songEntity: songEntity),
       ],
     );
   }
