@@ -21,6 +21,7 @@ dependencies:
   spotify:
   cloud_firestore:
   provider:
+  just_audio:
 
 
 dev_dependencies:
